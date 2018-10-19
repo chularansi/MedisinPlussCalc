@@ -1,0 +1,53 @@
+<div class="panel panel-primary">
+  <div class="panel-heading text-center">
+      Årlig risiko for slag ved atrieflimmer
+  </div>
+  <div class="panel-body">
+    <div class="form-group">
+      <div class="col-md-8 col-md-offset-2 button-wrapper">
+            <button class="btn btn-default btn-block" (click)="congestive = !congestive; onClick();"
+              [ngStyle]="{'background-color': !congestive? '#DDD' : '#7B7'}"><strong>C</strong>ongestive heart failure
+            </button>
+
+            <button class="btn btn-default btn-block" (click)="hypertension = !hypertension; onClick();"
+              [ngStyle]="{'background-color': !hypertension? '#DDD' : '#7B7'}"><strong>H</strong>ypertension
+            </button>
+
+            <button class="btn btn-default btn-block" (click)="age75_Over = !age75_Over; age65_74 = false; onClick();"
+              [ngStyle]="{'background-color': !age75_Over? '#DDD' : '#7B7'}"><strong>A</strong>ge ≥ 75
+            </button>
+
+            <button class="btn btn-default btn-block" (click)="age65_74 = !age65_74; age75_Over = false; onClick();"
+              [ngStyle]="{'background-color': !age65_74? '#DDD' : '#7B7'}"><strong>A</strong>ge 65 - 74
+            </button>
+
+            <button class="btn btn-default btn-block" (click)="diabetes = !diabetes; onClick();"
+              [ngStyle]="{'background-color': !diabetes? '#DDD' : '#7B7'}"><strong>D</strong>iabetes
+            </button>
+
+            <button class="btn btn-default btn-block" (click)="stroke = !stroke; onClick();"
+              [ngStyle]="{'background-color': !stroke? '#DDD' : '#7B7'}"><strong>S</strong>troke or TIA
+            </button>
+
+            <button class="btn btn-default btn-block" (click)="vascular = !vascular; onClick();"
+              [ngStyle]="{'background-color': !vascular? '#DDD' : '#7B7'}"><strong>Vas</strong>cular disease
+            </button>
+
+            <button class="btn btn-default btn-block" (click)="woman = !woman; onClick();"
+              [ngStyle]="{'background-color': !woman? '#DDD' : '#7B7'}"><strong>K</strong>vinne
+            </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-8 col-md-offset-2">
+          <span>
+              <button class="btn btn-default btn-block" 
+                style="border-color:black; cursor: default;" 
+                [style.backgroundColor]="riskColor"><strong>{{ chads }}  <br/>  {{ ak1 }} <br/> {{ ak2 }}</strong>
+              </button>
+          </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,161 @@
+<div class="panel panel-primary">
+  <div class="panel-heading text-center">
+      Beregning av 10-årsrisiko for fatalt og ikke-fatalt hjerteinfarkt eller hjerneslag
+  </div>
+  <div class="panel-body">
+    <form class="form-horizontal" [formGroup]="norrisk2Form">
+      <fieldset>
+        <div class="form-group"> 
+          <label class="col-md-4 control-label">Kjønn</label>
+          <div class="col-md-8" >
+              <label class="radio-inline">
+                  <input type="radio" value="woman" formControlName="gender" (change)="calculateValue('woman')">
+                  Kvinne
+              </label>
+              <label class="radio-inline">
+                  <input type="radio" value="man" formControlName="gender" (change)="calculateValue('man')">
+                  Mann
+              </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label">Røyke</label>
+          <div class="col-md-8" >
+              <label class="radio-inline">
+                  <input type="radio" value="non-smoker" formControlName="smoker" (change)="calculateValue('non-smoker')">
+                  Ikke-røyker
+              </label>
+              <label class="radio-inline">
+                  <input type="radio" value="smoker" formControlName="smoker" (change)="calculateValue('smoker')">
+                  Røyker
+              </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="ageId">Alder</label>
+            <div class="col-md-2">
+                <input class="form-control" 
+                        id="ageId" 
+                        type="number" step="1" min="45" max="74" value="45"
+                        formControlName="age" 
+                        (input)="calculateValue($event.target.value)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="bloodPresureId">Systolisk blodtrykk</label>
+          <div class="col-md-2">
+              <input class="form-control" 
+                      id="bloodPresureId" 
+                      type="number" step="1" min="120" max="160" value="120"
+                      formControlName="bloodPresure" 
+                      (input)="calculateValue($event.target.value)" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="cholesterolId">Total kolesterol</label>
+          <div class="col-md-2">
+              <input class="form-control" 
+                      id="cholesterolId" 
+                      type="number" step="0.1" min="4" max="8" value="4.0"
+                      formControlName="cholesterol" 
+                      (input)="calculateValue($event.target.value)" />
+          </div>
+        </div>
+
+        <div class="form-group"> 
+          <label class="col-md-4 control-label">Førstegradsslektninger med hjerteinfarkt før 60 år</label>
+          <div class="col-md-8" >
+              <label class="radio-inline">
+                  <input type="radio" value="0" formControlName="familyCHD" (change)="calculateValue('0')">
+                  0
+              </label>
+              <label class="radio-inline">
+                  <input type="radio" value="1" formControlName="familyCHD" (change)="calculateValue('1')">
+                  1
+              </label>
+              <label class="radio-inline">
+                  <input type="radio" value="2+" formControlName="familyCHD" (change)="calculateValue('2+')">
+                  2+
+              </label>
+          </div>
+        </div>
+
+        <div class="form-group"> 
+          <label class="col-md-4 control-label">Legemiddelbehandlet hypertensjon</label>
+          <div class="col-md-8" >
+              <label class="radio-inline">
+                <input type="radio" value="0" formControlName="BPmed" (change)="calculateValue('0')">
+                  Nei
+              </label>
+              <label class="radio-inline">
+                <input type="radio" value="1" formControlName="BPmed" (change)="calculateValue('1')">
+                  Ja
+              </label>
+          </div>
+        </div>
+
+        <div class="form-group"> 
+          <label class="col-md-4 control-label">Lavt HDL kolesterol</label>
+          <div class="col-md-8" >
+              <label class="radio-inline">
+                <input type="radio" value="0" formControlName="HDL" (change)="calculateValue('0')">
+                  Nei
+              </label>
+              <label class="radio-inline">
+                <input type="radio" value="1" formControlName="HDL" (change)="calculateValue('1')">
+                  Ja
+              </label>
+          </div>
+          <span class="col-md-8" style="font-size: 0.8em;">(Menn: < 1,0 mmol/l. Kvinner: < 1,3 mmol/l)</span>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-8 col-md-offset-2">
+                <span>
+                    <button class="btn btn-default btn-block" 
+                      style="border-color:black; cursor: default;" 
+                      [style.backgroundColor]="riskColor"><strong>{{ riskPercentage }}  -  {{ riskLevel }}</strong>
+                    </button>
+                </span>
+            </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-body">
+    <h3>Tilleggsfaktorer</h3>
+      <ul>
+        <li>Sørasiatisk etnisitet <strong>x1,5</strong></li>
+        <li>Revmatoid artritt <strong>x1,4</strong></li>
+        <li>Abdominal fedme<br><span style="font-size: 0.8em;">(Menn: > 100 cm.   Kvinner: > 88 cm)</span></li>
+        <li>Psykososial belastning og stress</li>
+    </ul>
+
+    <h3>Tolkning</h3>
+    <p>Sørasiatisk etnisitet og revmatoid artritt inngår ikke i risikomodellen, men de foreslåtte multiplikasjonsfaktorene antyder risikoøkningen assosiert med disse faktorene.</p>
+
+    <h3>Legemiddelbehandling bør vurderes ved beregnet risiko:</h3>
+    <ul>
+      <li>Over 5 % ved alder 45 - 54 år</li>
+      <li>Over 10 % ved alder 55 - 64 år</li>
+      <li>Over 15 % ved alder 65 - 74 år</li>
+      <li>Når råd om endring av levevaner ikke har gitt tilstrekkelig effekt etter 3-12 måneder.</li>
+    </ul>
+
+    <p style="white-space: pre-wrap;">Tiltaksgrenser ved alder < 45 år og ≥ 75 år må vurderes individuelt.
+      Vurder også legemiddelbehandling uavhengig av beregnet risiko ved:</p>
+    <ul>
+      <li>Totalkolesterol ≥ 7,0 mmol/l (unntatt hos kvinner over 50 år)</li>
+      <li>Systolisk blodtrykk ≥ 160 mmhg</li>
+      <li>Diabetes (se retningslinje)</li>
+      <li>Påvist endeorganskade som: asymptomatisk aterosklerose, nyreskade eller venstre ventrikkelhypertrofi</li>
+    </ul>
+  </div>
+</div>
